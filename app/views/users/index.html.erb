@@ -1,0 +1,20 @@
+<p>Friends</p>
+<% current_user.friendships.each do |f| %>
+  <%= f.accepter.email %> <%= link_to 'Unfriend', unfriend_path(:friend_id => f.accepter), :method => :delete %>
+<% end %>
+
+<p>Added Friends</p>
+<% current_user.added_friendships.each do |a| %>
+  <%= a.accepter.email %>
+<% end %>
+
+<p>Friends who added you</p>
+<% current_user.pending_friendships.each do |p| %>
+  <%= p.accepter.email %> <%= link_to 'Accept', accept_friend_path(:friend_id => p.accepter), :method => :post %> <%= link_to 'Reject', unfriend_path(:friend_id => p.accepter), :method => :delete %>
+<% end %>
+
+
+<p>All Users</p>
+<% @users.each do |u| %>
+  <%= u.email %> <%= link_to 'Add friend', add_friend_path(:friend_id => u), :method => :post %>
+<% end %>
